@@ -11,7 +11,7 @@ var questionArray = [
         correctAnswer: "2016"
     },
    {
-    question: "Who is the main actor in Pirates Of The Carribean",
+    question: "Who is the main actor in Pirates Of The Carribean?",
     choices: ["Dr. Oz", "Lebron James","Johnny Depp","Donald Trump"],
     correctAnswer: "Johnny Depp" 
    }
@@ -37,7 +37,16 @@ function countDown(){
     $(".running-time").text(timeRemaining);
     if (timeRemaining === 0){
         clearInterval(timer);
-        // remove question and show you're right or wrong
+        // remove question and show  wrong
+        $(".question-component").empty();
+        $(".answer-component").empty();
+        $(".question-component").html("<h2>You Got It Wrong!</h2>");
+        questionNumber --;
+        numberWrong ++;
+        setTimeout(function(){ 
+            renderQuestion();
+        }, 3000);
+        
         // mark the question as incorrect
     }
 };
@@ -47,18 +56,18 @@ console.log(questionArray);
 if (questionNumber < 0){
     $(".question-component").empty();
    var scoreScreen = $(".question-component").html("<h2>Game Over!</h2>");
-    scoreScreen.append("<h3>Number Right: " + numberRight + "</h3>");
-    scoreScreen.append("<h3>Number Wrong: " + numberWrong + "</h3>");
+    $(".answer-component").append("<h3>Number Correct:" + numberRight + "</h3>");
+    $(".wrong-component").append("<h3>Number Wrong: " + numberWrong + "</h3>");
     $(".time-remaining").empty();
 }
 
 else {
     timeRemaining = 30;
     countDown();
-$(".question-component").html("<p>" + questionArray[questionNumber].question + "</p>");
+$(".question-component").html("<h2>" + questionArray[questionNumber].question + "</h2>");
 for (var i = 0; i < questionArray[questionNumber].choices.length; i ++){
-var questionButton = $("<button class='answer-button' data-name= "+ questionArray[questionNumber].choices[i] +">").html(questionArray[questionNumber].choices[i]);
-$(".question-component").append(questionButton);
+var questionButton = $("<button>").addClass('answer-button btn-secondary my-4 mx-2').attr("data-name", questionArray[questionNumber].choices[i]).html(questionArray[questionNumber].choices[i]);
+$(".answer-component").append(questionButton);
 
 }
 
@@ -70,8 +79,11 @@ console.log("testing button click");
 console.log(questionNumber);
 var userChoice = $(this).attr("data-name");
 
-if (userChoice === questionArray[questionNumber].correctAnswer){
+console.log(questionArray[questionNumber].correctAnswer);
+console.log(userChoice);
+if (userChoice == questionArray[questionNumber].correctAnswer){
     $(".question-component").empty();
+    $(".answer-component").empty();
     $(".question-component").html("<h2>You Got It Right!</h2>");
     questionNumber --;
     numberRight ++;
@@ -83,6 +95,7 @@ if (userChoice === questionArray[questionNumber].correctAnswer){
 
 else if (userChoice !== questionArray[questionNumber].correctAnswer){
     $(".question-component").empty();
+    $(".answer-component").empty();
     $(".question-component").html("<h2>You Got It Wrong!</h2>");
     questionNumber --;
     numberWrong ++;
