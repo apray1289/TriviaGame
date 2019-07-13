@@ -1,0 +1,55 @@
+body {
+    height: 100%;
+}
+
+.main-section {
+margin: 40px auto;
+width: 80%;
+height: 600px;
+background-color: #79caba;
+
+}
+
+.bg {
+background-image: url("http://hdwpro.com/wp-content/uploads/2017/12/Animated-Cool-Background.jpg");
+
+}
+
+.main-title {
+text-align: center;
+padding-top: 25px;
+color: #9b438b;
+}
+
+.time-remaining {
+    text-align: center;
+    padding: 40px 10px 20px 10px;
+    position: absolute;
+    top: 60px;
+    margin: 10px 0px 10px 0px;
+
+}
+
+#start-button {
+    padding: 20px 60px 20px 60px;
+    background-color: #005499;
+    color: #fff;
+    border: solid 2px #70a698;
+    border-radius: 10px;
+    margin-top: 80px;
+    font-size: 18px;
+}
+
+#start-button:hover {
+    padding: 20px 60px 20px 60px;
+    background-color: #2a2a2b;
+    color: #fff;
+    border: solid 2px #70a698;
+    border-radius: 10px;
+    margin-top: 80px;
+    font-size: 18px;
+}
+
+.question-component {
+    
+}
