@@ -1,6 +1,5 @@
 
 var timeRemaining = 30;
-var questionNumber = 0;
 var intervalID;
 var timer;
 var numberRight = 0;
@@ -17,6 +16,7 @@ var questionArray = [
     correctAnswer: "Johnny Depp" 
    }
 ]
+var questionNumber = 1;
 
 $(".time-remaining").hide();
 
@@ -38,45 +38,58 @@ function countDown(){
     if (timeRemaining === 0){
         clearInterval(timer);
         // remove question and show you're right or wrong
+        // mark the question as incorrect
     }
 };
 
 function renderQuestion() {
+console.log(questionArray);
+if (questionNumber < 0){
+    $(".question-component").empty();
+   var scoreScreen = $(".question-component").html("<h2>Game Over!</h2>");
+    scoreScreen.append("<h3>Number Right: " + numberRight + "</h3>");
+    scoreScreen.append("<h3>Number Wrong: " + numberWrong + "</h3>");
+    $(".time-remaining").empty();
+}
+
+else {
+    timeRemaining = 30;
+    countDown();
 $(".question-component").html("<p>" + questionArray[questionNumber].question + "</p>");
 for (var i = 0; i < questionArray[questionNumber].choices.length; i ++){
 var questionButton = $("<button class='answer-button' data-name= "+ questionArray[questionNumber].choices[i] +">").html(questionArray[questionNumber].choices[i]);
 $(".question-component").append(questionButton);
 
+}
 
 }
-// $(".question-component").empty();
-// $(".question-component").html("<h2>Game Over!</h2>");
-// $(".question-component").html("<h2>Game Over!</h2>");
-
-}
+};
 
 $(document).on("click", ".answer-button",function(event){
 console.log("testing button click");
+console.log(questionNumber);
 var userChoice = $(this).attr("data-name");
 
 if (userChoice === questionArray[questionNumber].correctAnswer){
     $(".question-component").empty();
     $(".question-component").html("<h2>You Got It Right!</h2>");
-    questionNumber ++;
+    questionNumber --;
     numberRight ++;
     setTimeout(function(){ 
         renderQuestion();
     }, 3000);
+    
 }
 
 else if (userChoice !== questionArray[questionNumber].correctAnswer){
     $(".question-component").empty();
     $(".question-component").html("<h2>You Got It Wrong!</h2>");
-    questionNumber ++;
+    questionNumber --;
     numberWrong ++;
     setTimeout(function(){ 
         renderQuestion();
     }, 3000);
+   
 }
 
 });
